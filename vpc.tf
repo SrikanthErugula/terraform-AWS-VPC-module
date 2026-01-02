@@ -159,6 +159,20 @@ resource "aws_route" "public" {
   gateway_id = aws_internet_gateway.demo-main.id
 }
 
+# Private egress route through NAT
+
+resource "aws_route" "private" {
+  route_table_id            = aws_route_table.private.id
+  destination_cidr_block    = "0.0.0.0/0"
+  nat_gateway_id = aws_nat_gateway.nat.id
+}
+
+# Database egress route through NAT
+resource "aws_route" "database" {
+  route_table_id            = aws_route_table.database.id
+  destination_cidr_block    = "0.0.0.0/0"
+  nat_gateway_id = aws_nat_gateway.nat.id
+}
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip
 # Syntax 
@@ -197,21 +211,6 @@ resource "aws_nat_gateway" "nat" {
 # NAT anedhi public lo vundali pvt vachi pub ni adigithe adhi velli tisukoni vastundhi
 
 
-
-# Private egress route through NAT
-
-resource "aws_route" "private" {
-  route_table_id            = aws_route_table.private.id
-  destination_cidr_block    = "0.0.0.0/0"
-  nat_gateway_id = aws_nat_gateway.nat.id
-}
-
-# Database egress route through NAT
-resource "aws_route" "database" {
-  route_table_id            = aws_route_table.database.id
-  destination_cidr_block    = "0.0.0.0/0"
-  nat_gateway_id = aws_nat_gateway.nat.id
-}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association
 
