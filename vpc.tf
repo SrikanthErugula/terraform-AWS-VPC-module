@@ -1,13 +1,21 @@
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc
 #for syntax
 
+# resource "aws_vpc" "main" {
+#   cidr_block       = "10.0.0.0/16"
+#   instance_tenancy = "default"
+
+#   tags = {
+#     Name = "main"
+#   }
+# }
+
+# the above syntax wise we wrote below code 
+
 resource "aws_vpc" "main" {
   cidr_block       = var.vpc_cidr
   instance_tenancy = "default"
    enable_dns_hostnames = true # see below for deatiled
-#   tags = {
-#     Name = "main"
-#   }
 
 tags =  merge(
     local.common_tags, # MAP 1..# see below for deatils
