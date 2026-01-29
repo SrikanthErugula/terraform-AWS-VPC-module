@@ -19,7 +19,7 @@ resource "aws_vpc" "main" {
 
 tags =  merge(
     local.common_tags, # MAP 1..# see below for deatils
-    var.vpc_tags, # map 1 
+    var.vpc_tags, # map 1 # for user purpose ki 
     # before {} enni vunna adhi map 1 kidha ki vastai
     {
         Name = local.common_name_suffix #  map 2
@@ -27,7 +27,8 @@ tags =  merge(
 )
 }
 
-# here "main" or "this" ala vunttadhi usually bcz here adi okkate create chestunam
+# here "main" or "this" ala vunttadhi usually bcz here adi okkate create chestunam, vpc lu
+#okkate create chestunna so andhuke main or this
 
 # cidr_block       = "10.0.0.0/16" ila key and value vunte adi hardcode
 
