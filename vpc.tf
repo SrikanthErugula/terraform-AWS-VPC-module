@@ -42,7 +42,7 @@ tags =  merge(
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway.html
 # syntax
 resource "aws_internet_gateway" "demo-main" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.main.id # comes form out.tf file
 
   tags = merge(
     local.common_tags, # MAP 1..# see below for deatils
@@ -164,7 +164,7 @@ resource "aws_route_table" "database" {
 resource "aws_route" "public" {
   route_table_id            = aws_route_table.public.id
   destination_cidr_block    = "0.0.0.0/0"
-  gateway_id = aws_internet_gateway.demo-main.id
+  gateway_id = aws_internet_gateway.demo-main.id # selection see in aws 
 }
 
 # Private egress route through NAT
@@ -199,8 +199,8 @@ resource "aws_eip" "nat" {
 }
 
 # NAT gateway
-resource "aws_nat_gateway" "nat" { 
-  allocation_id = aws_eip.nat.id
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat.id  # comes form elastic block
   subnet_id     = aws_subnet.public[0].id # see in notes
 
   tags = merge(
