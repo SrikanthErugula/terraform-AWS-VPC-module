@@ -1,3 +1,6 @@
+# sess-35 and 36 and 37 below code 
+
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc
 #for syntax
 
