@@ -18,7 +18,7 @@
 resource "aws_vpc" "main" {
   cidr_block       = var.vpc_cidr
   instance_tenancy = "default"
-   enable_dns_hostnames = true # see below for deatiled
+  enable_dns_hostnames = true # see below for deatiled
 
 tags =  merge(
     local.common_tags, # MAP 1..# see below for deatils

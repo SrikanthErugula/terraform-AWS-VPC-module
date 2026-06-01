@@ -1,5 +1,5 @@
 output "vpc_sri_id" {
-  value       = aws_vpc.main.id # see in notes
+  value = aws_vpc.main.id # see in notes
 }
 
 output "public_subnet_ids" {
