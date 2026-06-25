@@ -5,7 +5,7 @@ common_tags = {
         Terraform = true
     }
     common_name_suffix = "${var.project_name}-${var.environment}" # roboshop-dev
-    az_names = slice(data.aws_availability_zones.available.names, 0, 2 )
+    az_names = slice(data.aws_availability_zones.available.names, 0, 2 )  # for subnets creation 
     # see slice funtion works
     #https://developer.hashicorp.com/terraform/language/functions/slice
 

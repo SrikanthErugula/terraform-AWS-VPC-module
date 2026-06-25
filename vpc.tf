@@ -3,16 +3,6 @@
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc
 #for syntax
-
-# resource "aws_vpc" "main" {
-#   cidr_block       = "10.0.0.0/16"
-#   instance_tenancy = "default"
-
-#   tags = {
-#     Name = "main"
-#   }
-# }
-
 # the above syntax wise we wrote below code 
 
 resource "aws_vpc" "main" {
@@ -22,7 +12,7 @@ resource "aws_vpc" "main" {
 
 tags =  merge(
     local.common_tags, # MAP 1..# see below for deatils
-    var.vpc_tags, # map 1 # for user purpose ki 
+    var.vpc_tags, # map 1 # for user purpose ki           # given a chance to user
     # before {} enni vunna adhi map 1 kidha ki vastai
     {
         Name = local.common_name_suffix #  map 2
@@ -49,7 +39,7 @@ resource "aws_internet_gateway" "demo-main" {
 
   tags = merge(
     local.common_tags, # MAP 1..# see below for deatils
-    var.igw_tags, # map 1 
+    var.igw_tags, # map 1     # given a chance to user
     # before {} enni vunna adhi map 1 kidha ki vastai
     {
         Name = local.common_name_suffix #  map 2
@@ -72,7 +62,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true # see in notes sess-36
 
   tags = merge(
-    var.public_subnet_tags,
+    var.public_subnet_tags,         # given a chance to user
     local.common_tags,
     {
         Name = "${local.common_name_suffix}-public-${local.az_names[count.index]}" # roboshop-dev-public-us-east-1a
@@ -93,7 +83,7 @@ resource "aws_subnet" "private" {
   #map_public_ip_on_launch = true # remove chete public access radhu 
 
   tags = merge(
-    var.private_subnet_tags,
+    var.private_subnet_tags,         # given a chance to user
     local.common_tags,
     {
         Name = "${local.common_name_suffix}-private-${local.az_names[count.index]}" # roboshop-dev-private-us-east-1a
@@ -112,7 +102,7 @@ resource "aws_subnet" "database" {
   #map_public_ip_on_launch = true # remove chete public access radhu 
 
   tags = merge(
-    var.database_subnet_tags,
+    var.database_subnet_tags,          # given a chance to user
     local.common_tags,
     {
         Name = "${local.common_name_suffix}-database-${local.az_names[count.index]}" # roboshop-dev-database-us-east-1a
@@ -121,13 +111,13 @@ resource "aws_subnet" "database" {
 
 }
 
-# Public Route Table
+# Public Route Table  ( this is used for pub subnet ki dhari creation chesam not allowed for allocation ki routes add cheyali)
 
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
 
   tags = merge(
-    var.public_route_table_tags,
+    var.public_route_table_tags,  # given a chance to user
     local.common_tags,
     {
         Name = "${local.common_name_suffix}-public"
@@ -141,7 +131,7 @@ resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
 
   tags = merge(
-    var.private_route_table_tags,
+    var.private_route_table_tags, # given a chance to user
     local.common_tags,
     {
         Name = "${local.common_name_suffix}-private"
@@ -155,7 +145,7 @@ resource "aws_route_table" "database" {
   vpc_id = aws_vpc.main.id
 
   tags = merge(
-    var.database_route_table_tags,
+    var.database_route_table_tags,      # given a chance to user
     local.common_tags,
     {
         Name = "${local.common_name_suffix}-database"
@@ -193,7 +183,7 @@ resource "aws_eip" "nat" {
   domain   = "vpc"
 
   tags = merge(
-    var.eip_tags,
+    var.eip_tags,   # given a chance to user
     local.common_tags,
     {
         Name = "${local.common_name_suffix}-nat"
@@ -207,7 +197,7 @@ resource "aws_nat_gateway" "nat" {
   subnet_id     = aws_subnet.public[0].id # see in notes
 
   tags = merge(
-    var.nat_gateway_tags,
+    var.nat_gateway_tags,  # given a chance to user
     local.common_tags,
     {
         Name = "${local.common_name_suffix}"
