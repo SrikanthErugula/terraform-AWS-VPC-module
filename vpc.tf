@@ -7,8 +7,8 @@
 
 resource "aws_vpc" "main" {
   cidr_block       = var.vpc_cidr
-  instance_tenancy = "default"
-  enable_dns_hostnames = true # see below for deatiled
+  instance_tenancy = "default"  
+  enable_dns_hostnames = true 
 
 tags =  merge(
     local.common_tags, # MAP 1..# see below for deatils
@@ -28,8 +28,6 @@ tags =  merge(
 # {local.common_tags, # idi user kosam picchi names pedithe rules follow avakunda 
 # valla name manam set chesina name tho replace avuthundhi map 2}
 
-# {enable_dns_hostnames ---receive a public DNS hostname and whether private DNS
-#hostnames can be resolved. }
 
 # IGW
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway.html
